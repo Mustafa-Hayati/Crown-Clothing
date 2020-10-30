@@ -1,5 +1,6 @@
 import "./CollectionPreview.scss";
 import React from "react";
+import CollectionItem from "../CollectionItem/CollectionItem";
 
 interface Props {
   id?: number;
@@ -8,8 +9,8 @@ interface Props {
   items: Item[];
 }
 
-interface Item {
-  id: number;
+export interface Item {
+  id?: number;
   name: string;
   imageUrl: string;
   price: number;
@@ -22,8 +23,8 @@ const CollectionPreview: React.FC<Props> = ({ title, items }) => {
       <div className="preview">
         {items
           .filter((_, idx) => idx < 4)
-          .map(({ id, name }) => (
-            <div key={id}>{name}</div>
+          .map(({ id, ...itemProps }) => (
+            <CollectionItem key={id} {...itemProps} />
           ))}
       </div>
     </div>

@@ -1,6 +1,7 @@
 import "./Directory.scss";
 import React, { useState } from "react";
-import MenuItem from "./../MenuItem/MenuItem";
+import MenuItem from "../MenuItem/MenuItem";
+import SECTIONS_DATA from "./sectionsData";
 
 export interface Cloth {
   title: string;
@@ -10,44 +11,9 @@ export interface Cloth {
   linkUrl: string;
 }
 
-const InitialSections = [
-  {
-    title: "hats",
-    imageUrl: "/images/hats.png",
-    id: 1,
-    linkUrl: "hats",
-  },
-  {
-    title: "jackets",
-    imageUrl: "/images/jackets.png",
-    id: 2,
-    linkUrl: "",
-  },
-  {
-    title: "sneakers",
-    imageUrl: "/images/sneakers.png",
-    id: 3,
-    linkUrl: "",
-  },
-  {
-    title: "womens",
-    imageUrl: "/images/womens.png",
-    size: "large",
-    id: 4,
-    linkUrl: "",
-  },
-  {
-    title: "mens",
-    imageUrl: "/images/men.png",
-    size: "large",
-    id: 5,
-    linkUrl: "",
-  },
-];
-
 const Directory: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [sections, setSections] = useState<Cloth[]>(InitialSections);
+  const [sections, setSections] = useState<Cloth[]>(SECTIONS_DATA);
 
   return (
     <div className="directory-menu">
