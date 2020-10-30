@@ -1,15 +1,33 @@
 import "./MenuItem.scss";
 import React from "react";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
-interface Props {
+// If you want to use params like user/:userId then
+// you have to path {userId: string} as generic type
+// to RouteComponentProps. If you don't have params,
+// then just extend your props interface with
+// RouteComponentProps
+interface Props extends RouteComponentProps {
   title: string;
   imageUrl: string;
   size?: string;
+  linkUrl: string;
 }
 
-const MenuItem: React.FC<Props> = ({ title, imageUrl, size }) => {
+const MenuItem: React.FC<Props> = ({
+  title,
+  imageUrl,
+  size,
+  linkUrl,
+  history,
+  match,
+}) => {
+  const onDivClick = (): void => {
+    history.push(`${match.url}${linkUrl}`);
+  };
+
   return (
-    <div className={`menu-item ${size}`}>
+    <div onClick={onDivClick} className={`menu-item ${size}`}>
       <div
         className="background-image"
         style={{
@@ -28,4 +46,4 @@ const MenuItem: React.FC<Props> = ({ title, imageUrl, size }) => {
 //   title: "",
 // };
 
-export default MenuItem;
+export default withRouter(MenuItem);
