@@ -2,7 +2,7 @@ import "./CustomButton.scss";
 import React from "react";
 
 interface Props {
-  [key: string]: string;
+  [key: string]: string | Function;
 }
 
 const CustomButton: React.FC<Props> = ({
