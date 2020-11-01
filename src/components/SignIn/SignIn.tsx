@@ -1,4 +1,6 @@
+import "./SignIn.scss";
 import React, { useState } from "react";
+import FormInput from "../FormInput/FormInput";
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -39,24 +41,22 @@ const SignIn: React.FC = () => {
       <span>Sign in with your email and password</span>
 
       <form onSubmit={onFormSubmit}>
-        <input
+        <FormInput
           type="email"
           name="email"
-          required
           autoComplete="off"
           value={email}
-          onChange={onInputChange}
+          onInputChange={onInputChange}
+          label="email"
         />
-        <label>Email</label>
-        <input
+        <FormInput
           type="password"
           name="password"
-          required
           value={password}
-          onChange={onInputChange}
+          onInputChange={onInputChange}
+          label="password"
         />
-        <label>Password</label>
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Submit Form" />
       </form>
     </div>
   );
