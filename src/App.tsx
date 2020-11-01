@@ -8,20 +8,24 @@ import SignInAndSignUp from "./pages/SignInAndSignUp/SingInAndSignUp";
 
 // firebase and authentication
 import firebase from "firebase";
-import { auth } from "./firebase/firebase.utils";
+import {
+  auth,
+  createUserProfileDocument,
+} from "./firebase/firebase.utils";
 
 const App = () => {
   const [
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     currentUser,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     setCurrentUser,
   ] = useState<firebase.User | null>(null);
 
   useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      setCurrentUser(user);
-      console.log("App -> user", user);
-    });
+    const unsubscribeFromAuth = auth.onAuthStateChanged(
+      async user => {
+        await createUserProfileDocument(user);
+      }
+    );
 
     return () => {
       console.log("App will unmount");
