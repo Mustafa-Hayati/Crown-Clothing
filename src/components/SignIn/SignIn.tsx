@@ -1,6 +1,7 @@
 import "./SignIn.scss";
 import React, { useState } from "react";
 import FormInput from "../FormInput/FormInput";
+import CustomButton from "../CustomButton/CustomButton";
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -44,7 +45,7 @@ const SignIn: React.FC = () => {
         <FormInput
           type="email"
           name="email"
-          autoComplete="off"
+          // autoComplete="off"
           value={email}
           onInputChange={onInputChange}
           label="email"
@@ -56,7 +57,8 @@ const SignIn: React.FC = () => {
           onInputChange={onInputChange}
           label="password"
         />
-        <input type="submit" value="Submit Form" />
+        <CustomButton type="submit">Sign In</CustomButton>
+        {/* <input type="submit" value="Submit Form" /> */}
       </form>
     </div>
   );
