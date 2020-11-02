@@ -1,13 +1,13 @@
 import "./CustomButton.scss";
 import React from "react";
 
-interface Props {
+interface IProps {
   isGoogleSignIn?: boolean;
   onClick?: Function;
 }
 
 const CustomButton: React.FC<
-  React.ButtonHTMLAttributes<HTMLButtonElement> & Props
+  React.ButtonHTMLAttributes<HTMLButtonElement> & IProps
 > = ({ children, isGoogleSignIn, ...otherProps }) => {
   return (
     <button

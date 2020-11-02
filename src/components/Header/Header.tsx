@@ -10,11 +10,11 @@ import { ReactComponent as Logo } from "../../assets/crown.svg";
 import firebase from "firebase";
 import { auth } from "../../firebase/firebase.utils";
 
-interface Props {
+interface IProps {
   currentUser: firebase.User | null;
 }
 
-const Header: React.FC<Props> = ({ currentUser }) => {
+const Header: React.FC<IProps> = ({ currentUser }) => {
   const onSignOutClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {

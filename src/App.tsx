@@ -7,23 +7,42 @@ import ShopPage from "./pages/ShopPage/ShopPage";
 import SignInAndSignUp from "./pages/SignInAndSignUp/SingInAndSignUp";
 
 // firebase and authentication
-import firebase from "firebase";
+// import firebase from "firebase";
 import {
   auth,
   createUserProfileDocument,
 } from "./firebase/firebase.utils";
 
-const App = () => {
-  const [
-    currentUser,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    setCurrentUser,
-  ] = useState<firebase.User | null>(null);
+// TODO: define the type of currentUser
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+interface IProps {
+  id: string;
+  displayName: string;
+  email: string;
+  createdAt: Date;
+}
 
+const App = () => {
+  // FIXME fix the any type of the current user.
+  const [currentUser, setCurrentUser] = useState<any | null>(null);
+
+  // const theUser = useRef(currentUser);
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(
-      async user => {
-        await createUserProfileDocument(user);
+      async userAuth => {
+        if (userAuth) {
+          const userRef = await createUserProfileDocument(userAuth);
+
+          userRef?.onSnapshot(snapShot => {
+            setCurrentUser({
+              id: snapShot.id,
+              ...snapShot.data(),
+            });
+          });
+        } else {
+          // set user to null
+          setCurrentUser(userAuth);
+        }
       }
     );
 
@@ -32,6 +51,9 @@ const App = () => {
       unsubscribeFromAuth();
     };
   }, []);
+
+  // TODO: delete this after finishing the app
+  useEffect(() => console.log(currentUser), [currentUser]);
 
   return (
     <div>

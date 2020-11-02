@@ -2,7 +2,7 @@ import "./CollectionPreview.scss";
 import React from "react";
 import CollectionItem from "../CollectionItem/CollectionItem";
 
-interface Props {
+interface IProps {
   id?: number;
   title: string;
   routeName?: string;
@@ -16,7 +16,7 @@ export interface Item {
   price: number;
 }
 
-const CollectionPreview: React.FC<Props> = ({ title, items }) => {
+const CollectionPreview: React.FC<IProps> = ({ title, items }) => {
   return (
     <div className="collection-preview">
       <h1 className="title">{title.toUpperCase()}</h1>

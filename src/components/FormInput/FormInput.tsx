@@ -1,7 +1,7 @@
 import "./FormInput.scss";
 import React from "react";
 
-interface Props {
+interface IProps {
   // [key: string]: string | Function;
   label?: string;
   onInputChange: (e: React.FormEvent<HTMLInputElement>) => void;
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const FormInput: React.FC<
-  React.InputHTMLAttributes<HTMLInputElement> & Props
+  React.InputHTMLAttributes<HTMLInputElement> & IProps
 > = ({ onInputChange, label, ...otherProps }) => {
   return (
     <div className="group">

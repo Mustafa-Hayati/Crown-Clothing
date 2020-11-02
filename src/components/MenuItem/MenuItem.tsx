@@ -7,14 +7,14 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 // to RouteComponentProps. If you don't have params,
 // then just extend your props interface with
 // RouteComponentProps
-interface Props extends RouteComponentProps {
+interface IProps extends RouteComponentProps {
   title: string;
   imageUrl: string;
   size?: string;
   linkUrl: string;
 }
 
-const MenuItem: React.FC<Props> = ({
+const MenuItem: React.FC<IProps> = ({
   title,
   imageUrl,
   size,
