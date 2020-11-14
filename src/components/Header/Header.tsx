@@ -12,6 +12,7 @@ import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { auth } from "../../firebase/firebase.utils";
 import { IUser } from "../../Redux/types/userTypes";
 import { IApplicationState } from "../../Redux/store/store";
+import CartIcon from "../CartIcon/CartIcon";
 
 interface IProps {
   currentUser: IUser | null;
@@ -45,6 +46,7 @@ const Header: React.FC<IProps> = ({ currentUser }) => {
             SGIN IN
           </Link>
         )}
+        <CartIcon />
       </div>
     </div>
   );
