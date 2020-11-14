@@ -20,5 +20,5 @@ export interface IUserSetCurrentAction {
 export type UserActions = IUserSetCurrentAction;
 
 export interface IUserState {
-  readonly currentUser: IUser | null;
+  /* readonly */ currentUser: IUser | null;
 }

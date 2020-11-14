@@ -16,7 +16,6 @@ const SignIn: React.FC = () => {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    // TODO: Complete the functionality
     try {
       await auth.signInWithEmailAndPassword(email, password);
       setPassword("");

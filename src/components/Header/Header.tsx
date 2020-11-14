@@ -1,17 +1,20 @@
 import "./Header.scss";
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 /** NOTE
  * This (⬇) is a special syntax in React for importing SVG
  */
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 
 // Showing Sign in and Sign out
-import firebase from "firebase";
+// import firebase from "firebase";
 import { auth } from "../../firebase/firebase.utils";
+import { IUser } from "../../Redux/types/userTypes";
+import { IApplicationState } from "../../Redux/store/store";
 
 interface IProps {
-  currentUser: firebase.User | null;
+  currentUser: IUser | null;
 }
 
 const Header: React.FC<IProps> = ({ currentUser }) => {
@@ -47,4 +50,10 @@ const Header: React.FC<IProps> = ({ currentUser }) => {
   );
 };
 
-export default Header;
+const mapStateToProps = (store: IApplicationState) => {
+  return {
+    currentUser: store.user.currentUser,
+  };
+};
+
+export default connect(mapStateToProps)(Header);
