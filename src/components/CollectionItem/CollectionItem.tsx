@@ -1,5 +1,6 @@
 import "./CollectionItem.scss";
 import React from "react";
+import CustomButton from "../CustomButton/CustomButton";
 import { Item } from "../CollectionPreview/CollectionPreview";
 
 const CollectionItem: React.FC<Item> = ({
@@ -19,6 +20,7 @@ const CollectionItem: React.FC<Item> = ({
         <span className="name">{name}</span>
         <span className="price">{price}</span>
       </div>
+      <CustomButton inverted>Add to cart</CustomButton>
     </div>
   );
 };
