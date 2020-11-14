@@ -13,6 +13,7 @@ import { auth } from "../../firebase/firebase.utils";
 import { IUser } from "../../Redux/types/userTypes";
 import { IApplicationState } from "../../Redux/store/store";
 import CartIcon from "../CartIcon/CartIcon";
+import CartDropdown from "../CartDropdown/CartDropdown";
 
 interface IProps {
   currentUser: IUser | null;
@@ -48,6 +49,7 @@ const Header: React.FC<IProps> = ({ currentUser }) => {
         )}
         <CartIcon />
       </div>
+      <CartDropdown />
     </div>
   );
 };
