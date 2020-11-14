@@ -3,9 +3,12 @@ import {
   createStore,
   Store,
   Middleware,
+  // compose
 } from "redux";
-
 import logger from "redux-logger";
+
+import { composeWithDevTools } from "redux-devtools-extension";
+
 import rootReducer from "../reducers/rootReducer";
 import { IUserState } from "../types/userTypes";
 
@@ -18,8 +21,7 @@ const middlewares: Middleware[] = [logger];
 export default function configureStore(): Store<IApplicationState> {
   const store = createStore(
     rootReducer,
-    undefined,
-    applyMiddleware(...middlewares)
+    composeWithDevTools(applyMiddleware(...middlewares))
   );
 
   return store;
