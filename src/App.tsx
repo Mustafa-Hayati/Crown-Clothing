@@ -13,18 +13,19 @@ import {
   createUserProfileDocument,
 } from "./firebase/firebase.utils";
 
-// TODO: define the type of currentUser
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface IProps {
-  id: string;
-  displayName: string;
-  email: string;
-  createdAt: Date;
-}
-
 const App = () => {
   // FIXME fix the any type of the current user.
-  const [currentUser, setCurrentUser] = useState<any | null>(null);
+  const [currentUser, setCurrentUser] = useState<
+    any | null
+  >(/* {
+    id: "",
+    displayName: "",
+    createdAt: {
+      seconds: 0,
+      nanoseconds: 0,
+    },
+    email: "",
+  } */);
 
   // const theUser = useRef(currentUser);
   useEffect(() => {
@@ -34,6 +35,10 @@ const App = () => {
           const userRef = await createUserProfileDocument(userAuth);
 
           userRef?.onSnapshot(snapShot => {
+            // const obje = {
+            //   id: snapShot.id,
+            //   email: snapShot.data().email,
+            // };
             setCurrentUser({
               id: snapShot.id,
               ...snapShot.data(),
@@ -52,7 +57,7 @@ const App = () => {
     };
   }, []);
 
-  // TODO: delete this after finishing the app
+  // TODO: delete this after finishing the app`
   useEffect(() => console.log(currentUser), [currentUser]);
 
   return (
