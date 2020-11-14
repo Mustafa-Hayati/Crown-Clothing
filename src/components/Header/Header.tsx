@@ -17,9 +17,10 @@ import CartDropdown from "../CartDropdown/CartDropdown";
 
 interface IProps {
   currentUser: IUser | null;
+  hidden: boolean;
 }
 
-const Header: React.FC<IProps> = ({ currentUser }) => {
+const Header: React.FC<IProps> = ({ currentUser, hidden }) => {
   const onSignOutClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
@@ -49,14 +50,18 @@ const Header: React.FC<IProps> = ({ currentUser }) => {
         )}
         <CartIcon />
       </div>
-      <CartDropdown />
+      {!hidden && <CartDropdown />}
     </div>
   );
 };
 
-const mapStateToProps = (store: IApplicationState) => {
+const mapStateToProps = ({
+  user: { currentUser },
+  cart: { hidden },
+}: IApplicationState) => {
   return {
-    currentUser: store.user.currentUser,
+    currentUser,
+    hidden,
   };
 };
 
