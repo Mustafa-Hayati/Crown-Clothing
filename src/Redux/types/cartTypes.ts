@@ -1,13 +1,27 @@
 export enum CartActionTypes {
   TOGGLE_CART_HIDDEN = "TOGGLE_CART_HIDDEN",
+  ADD_ITEM = "ADD_ITEM",
 }
 
 export interface ICartToggleHidden {
   type: CartActionTypes.TOGGLE_CART_HIDDEN;
 }
 
-export type CartActions = ICartToggleHidden;
+export interface ICartItem {
+  id: number;
+  name: string;
+  imageUrl: string;
+  price: number;
+}
+
+export interface ICartAddItem {
+  type: CartActionTypes.ADD_ITEM;
+  payload: ICartItem;
+}
+
+export type CartActions = ICartToggleHidden | ICartAddItem;
 
 export interface ICartState {
   readonly hidden: boolean;
+  readonly cartItems: ICartItem[];
 }

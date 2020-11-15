@@ -8,6 +8,7 @@ import {
 
 const initialCartState: ICartState = {
   hidden: true,
+  cartItems: [],
 };
 
 export const cartReducer: Reducer<ICartState, CartActions> = (
@@ -19,6 +20,12 @@ export const cartReducer: Reducer<ICartState, CartActions> = (
       return {
         ...state,
         hidden: !state.hidden,
+      };
+
+    case CartActionTypes.ADD_ITEM:
+      return {
+        ...state,
+        cartItems: [...state.cartItems, action.payload],
       };
 
     default:

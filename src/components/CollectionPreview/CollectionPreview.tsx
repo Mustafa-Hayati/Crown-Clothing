@@ -1,19 +1,13 @@
 import "./CollectionPreview.scss";
 import React from "react";
 import CollectionItem from "../CollectionItem/CollectionItem";
+import { ICartItem } from "../../Redux/types/cartTypes";
 
 interface IProps {
   id?: number;
   title: string;
   routeName?: string;
-  items: Item[];
-}
-
-export interface Item {
-  id?: number;
-  name: string;
-  imageUrl: string;
-  price: number;
+  items: ICartItem[];
 }
 
 const CollectionPreview: React.FC<IProps> = ({ title, items }) => {
@@ -23,8 +17,8 @@ const CollectionPreview: React.FC<IProps> = ({ title, items }) => {
       <div className="preview">
         {items
           .filter((_, idx) => idx < 4)
-          .map(({ id, ...itemProps }) => (
-            <CollectionItem key={id} {...itemProps} />
+          .map(item => (
+            <CollectionItem key={item.id} item={item} />
           ))}
       </div>
     </div>
