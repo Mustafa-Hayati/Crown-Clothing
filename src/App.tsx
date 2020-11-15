@@ -2,6 +2,7 @@ import "./App.css";
 import React, { /* useState, */ FC, useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import ShopPage from "./pages/ShopPage/ShopPage";
@@ -16,6 +17,7 @@ import {
   createUserProfileDocument,
 } from "./firebase/firebase.utils";
 import { IApplicationState } from "./Redux/store/store";
+import { selectCurrentUser } from "./Redux/selectors/userSelectors";
 
 interface IProps {
   currentUser: IUser | null;
@@ -67,8 +69,15 @@ const App: FC<IProps> = ({ currentUser, setCurrentUser }) => {
   );
 };
 
-const mapStateToProps = (state: IApplicationState) => ({
-  currentUser: state.user.currentUser,
+interface IDesiredSelection {
+  currentUser: IUser | null;
+}
+
+const mapStateToProps = createStructuredSelector<
+  IApplicationState,
+  IDesiredSelection
+>({
+  currentUser: selectCurrentUser,
 });
 
 const mapDispatchToProps = (dispatch: any) => {

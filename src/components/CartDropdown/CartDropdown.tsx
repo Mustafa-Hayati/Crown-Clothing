@@ -6,6 +6,7 @@ import { IApplicationState } from "../../Redux/store/store";
 import { ICartItem } from "../../Redux/types/cartTypes";
 import CartItem from "../CartItem/CartItem";
 import { selectCartItems } from "../../Redux/selectors/cartSelectors";
+import { createStructuredSelector } from "reselect";
 
 interface IProps {
   cartItems: ICartItem[];
@@ -23,10 +24,16 @@ const CartDropdown: FC<IProps> = ({ cartItems }) => {
     </div>
   );
 };
-const mapStateToProps = (store: IApplicationState) => {
-  return {
-    cartItems: selectCartItems(store),
-  };
-};
+
+interface IDesiredSelection {
+  cartItems: ICartItem[];
+}
+
+const mapStateToProps = createStructuredSelector<
+  IApplicationState,
+  IDesiredSelection
+>({
+  cartItems: selectCartItems,
+});
 
 export default connect(mapStateToProps)(CartDropdown);

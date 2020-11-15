@@ -2,10 +2,6 @@ import { createSelector } from "reselect";
 import { IApplicationState } from "../store/store";
 import { ICartItem, ICartState } from "../types/cartTypes";
 
-/* 
-function createSelector<S, R1, T>(selector: Selector<S, R1>, combiner: (res: R1) => T): OutputSelector<S, T, (res: R1) => T> (+97 overloads)
-*/
-
 // We can create 2 types of selectors:
 // 1) input selectors: that doesn't use createSelector
 // 2) ouput selector: which does use createSelector
@@ -17,11 +13,11 @@ function createSelector<S, R1, T>(selector: Selector<S, R1>, combiner: (res: R1)
 const selectCart = (state: IApplicationState): ICartState =>
   state.cart;
 
-// const selectUser = (state: IApplicationState) => state.user;
-
 /* NOTE
  * output selector: it's a function taking three args.
- * 1) An array of selectors: [selectCart, selectUser]
+ * 1) An array of selectors: [selectCart, selectUser].
+ * You can also pass them one by one too, but arrays are
+ * more elegant.
  * 2) A function as combiner, which takes the result
  * of the selecots: (cart, user) => ({user, cart}).
  *
@@ -43,3 +39,9 @@ export const selectCartItemsCount = createSelector<
     return acc + cartItem.quantity;
   }, 0)
 );
+
+export const selectCartHidden = createSelector<
+  IApplicationState,
+  ICartState,
+  boolean
+>([selectCart], cart => cart.hidden);
