@@ -1,4 +1,5 @@
 import { Reducer } from "redux";
+import { addItemToCart } from "../utils/cartUtils";
 
 import {
   ICartState,
@@ -25,7 +26,7 @@ export const cartReducer: Reducer<ICartState, CartActions> = (
     case CartActionTypes.ADD_ITEM:
       return {
         ...state,
-        cartItems: [...state.cartItems, action.payload],
+        cartItems: addItemToCart(state.cartItems, action.payload),
       };
 
     default:

@@ -12,6 +12,7 @@ export interface ICartItem {
   name: string;
   imageUrl: string;
   price: number;
+  quantity: number;
 }
 
 export interface ICartAddItem {
