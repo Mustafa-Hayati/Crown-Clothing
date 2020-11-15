@@ -5,6 +5,7 @@ import CustomButton from "../CustomButton/CustomButton";
 import { IApplicationState } from "../../Redux/store/store";
 import { ICartItem } from "../../Redux/types/cartTypes";
 import CartItem from "../CartItem/CartItem";
+import { selectCartItems } from "../../Redux/selectors/cartSelectors";
 
 interface IProps {
   cartItems: ICartItem[];
@@ -22,11 +23,9 @@ const CartDropdown: FC<IProps> = ({ cartItems }) => {
     </div>
   );
 };
-const mapStateToProps = ({
-  cart: { cartItems },
-}: IApplicationState) => {
+const mapStateToProps = (store: IApplicationState) => {
   return {
-    cartItems,
+    cartItems: selectCartItems(store),
   };
 };
 

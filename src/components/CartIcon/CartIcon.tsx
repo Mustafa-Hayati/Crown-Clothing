@@ -3,6 +3,7 @@ import React, { FC } from "react";
 import { connect } from "react-redux";
 import { ReactComponent as ShoppingIcon } from "../../assets/shopping-bag.svg";
 import { toggleCartHidden } from "../../Redux/actions/cartActions";
+import { selectCartItemsCount } from "../../Redux/selectors/cartSelectors";
 import { IApplicationState } from "../../Redux/store/store";
 
 interface IProps {
@@ -19,12 +20,8 @@ const CartIcon: FC<IProps> = ({ toggleCartHidden, itemCount }) => {
   );
 };
 
-const mapStateToProps = ({
-  cart: { cartItems },
-}: IApplicationState) => ({
-  itemCount: cartItems.reduce((acc, cartItem) => {
-    return acc + cartItem.quantity;
-  }, 0),
+const mapStateToProps = (store: IApplicationState) => ({
+  itemCount: selectCartItemsCount(store),
 });
 
 const mapDispatchToProps = (dispatch: any) => {
