@@ -3,9 +3,8 @@ import React, { FC } from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import configureStore, {
-  IApplicationState,
-} from "./Redux/store/store";
+import { PersistGate } from "redux-persist/integration/react";
+import storage, { IApplicationState } from "./Redux/store/store";
 import App from "./App";
 import { Store } from "redux";
 
@@ -17,15 +16,15 @@ const Root: FC<IProps> = ({ store }) => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <PersistGate persistor={storage.persistor}>
+          <App />
+        </PersistGate>
       </BrowserRouter>
     </Provider>
   );
 };
 
-const store = configureStore();
-
 ReactDOM.render(
-  <Root store={store} />,
+  <Root store={storage.store} />,
   document.getElementById("root")
 );

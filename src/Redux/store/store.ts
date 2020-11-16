@@ -3,8 +3,8 @@ import {
   createStore,
   Store,
   Middleware,
-  // compose
 } from "redux";
+import { persistStore } from "redux-persist";
 import logger from "redux-logger";
 
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -20,11 +20,16 @@ export interface IApplicationState {
 
 const middlewares: Middleware[] = [logger];
 
-export default function configureStore(): Store<IApplicationState> {
-  const store = createStore(
-    rootReducer,
-    composeWithDevTools(applyMiddleware(...middlewares))
-  );
+const store: Store<IApplicationState> = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(...middlewares))
+);
 
-  return store;
-}
+const persistor = persistStore(store);
+
+const storage = {
+  persistor,
+  store,
+};
+
+export default storage;
