@@ -8,6 +8,7 @@ import {
 } from "../../Redux/selectors/cartSelectors";
 import { ICartItem } from "../../Redux/types/cartTypes";
 import { IApplicationState } from "../../Redux/store/store";
+import CheckoutItem from "../../components/CheckoutItem/CheckoutItem";
 
 interface IProps {
   cartItems: ICartItem[];
@@ -34,7 +35,9 @@ const CheckoutPage: FC<IProps> = ({ cartItems, totalPrice }) => {
           <span>Remove</span>
         </div>
       </div>
-      {cartItems.map(cartItem => cartItem.name)}
+      {cartItems.map(cartItem => (
+        <CheckoutItem cartItem={cartItem} key={cartItem.id} />
+      ))}
       <div className="total">
         <span>TOTAL: ${totalPrice}</span>
       </div>
