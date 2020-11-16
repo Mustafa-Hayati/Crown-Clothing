@@ -7,6 +7,7 @@ import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import ShopPage from "./pages/ShopPage/ShopPage";
 import SignInAndSignUp from "./pages/SignInAndSignUp/SingInAndSignUp";
+import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 import { setCurrentUser } from "./Redux/actions/userActions";
 import { IUser } from "./Redux/types/userTypes";
 
@@ -64,6 +65,7 @@ const App: FC<IProps> = ({ currentUser, setCurrentUser }) => {
             currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
           }
         />
+        <Route exact path="/checkout" component={CheckoutPage} />
       </Switch>
     </div>
   );
