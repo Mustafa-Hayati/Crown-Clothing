@@ -45,3 +45,13 @@ export const selectCartHidden = createSelector<
   ICartState,
   boolean
 >([selectCart], cart => cart.hidden);
+
+export const selectCartTotal = createSelector<
+  IApplicationState,
+  ICartItem[],
+  number
+>([selectCartItems], cartItems =>
+  cartItems.reduce((acc, cartItem) => {
+    return acc + cartItem.quantity * cartItem.price;
+  }, 0)
+);
