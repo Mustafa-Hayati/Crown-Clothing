@@ -3,7 +3,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { addItem } from "../../Redux/actions/cartActions";
 import CustomButton from "../CustomButton/CustomButton";
-import { ICartItem } from "../../Redux/types/cartTypes";
+import { ICartAddItem, ICartItem } from "../../Redux/types/cartTypes";
+import { Dispatch } from "redux";
 
 interface IProps {
   addItem: typeof addItem;
@@ -31,7 +32,7 @@ const CollectionItem: React.FC<IProps> = ({ item, addItem }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch<ICartAddItem>) => {
   return {
     addItem: (item: ICartItem) => dispatch(addItem(item)),
   };

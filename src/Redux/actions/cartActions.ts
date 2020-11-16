@@ -5,6 +5,7 @@ import {
   ICartAddItem,
   ICartClearItem,
   ICartItem,
+  ICartRemoveItem,
   ICartToggleHidden,
 } from "../types/cartTypes";
 
@@ -16,6 +17,13 @@ export const addItem: ActionCreator<ICartAddItem> = (
   item: ICartItem
 ): ICartAddItem => ({
   type: CartActionTypes.ADD_ITEM,
+  payload: item,
+});
+
+export const removeItem: ActionCreator<ICartRemoveItem> = (
+  item: ICartItem
+): ICartRemoveItem => ({
+  type: CartActionTypes.REMOVE_ITEM,
   payload: item,
 });
 

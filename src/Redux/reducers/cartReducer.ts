@@ -1,5 +1,8 @@
 import { Reducer } from "redux";
-import { addItemToCart } from "../utils/cartUtils";
+import {
+  addItemToCart,
+  removeItemFromCart,
+} from "../utils/cartUtils";
 
 import {
   ICartState,
@@ -27,6 +30,15 @@ export const cartReducer: Reducer<ICartState, CartActions> = (
       return {
         ...state,
         cartItems: addItemToCart(state.cartItems, action.payload),
+      };
+
+    case CartActionTypes.REMOVE_ITEM:
+      return {
+        ...state,
+        cartItems: removeItemFromCart(
+          state.cartItems,
+          action.payload
+        ),
       };
 
     case CartActionTypes.CLEAR_ITEM_FROM_CART:
