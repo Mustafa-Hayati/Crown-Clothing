@@ -14,7 +14,8 @@ interface IProps {
 const Directory: React.FC<IProps> = ({ sections }) => {
   return (
     <div className="directory-menu">
-      {sections.map(({ id, ...otherSectionProps }) => {
+      {sections.map(section => {
+        const { id, ...otherSectionProps } = section;
         return <MenuItem key={id} {...otherSectionProps} />;
       })}
     </div>

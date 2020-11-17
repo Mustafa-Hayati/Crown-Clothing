@@ -50,7 +50,6 @@ const App: FC<IProps> = ({ currentUser, setCurrentUser }) => {
     );
 
     return () => {
-      console.log("App will unmount");
       unsubscribeFromAuth();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
