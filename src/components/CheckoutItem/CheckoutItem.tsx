@@ -37,17 +37,23 @@ const CheckoutItem: FC<IProps> = ({
       </div>
       <span className="name">{name}</span>
       <span className="quantity">
-        <div className="arrow" onClick={() => removeItem(cartItem)}>
+        <div
+          className="arrow noselect"
+          onClick={() => removeItem(cartItem)}
+        >
           &#10094;
         </div>
         <span className="value">{quantity}</span>
-        <div className="arrow" onClick={() => addItem(cartItem)}>
+        <div
+          className="arrow noselect"
+          onClick={() => addItem(cartItem)}
+        >
           &#10095;
         </div>
       </span>
-      <span className="price">{price}</span>
+      <span className="price noselect">{price}</span>
       <div
-        className="remove-button"
+        className="remove-button noselect"
         onClick={() => clearItem(cartItem)}
       >
         &#10005;
