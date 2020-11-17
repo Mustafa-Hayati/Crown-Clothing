@@ -4,39 +4,39 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import CollectionPreview from "../CollectionPreview/CollectionPreview";
 import { IApplicationState } from "../../Redux/store/store";
-import { selectCollections } from "../../Redux/selectors/shopSelectors";
-import { IShopData } from "../../Redux/types/shopTypes";
+import { selectCollectionsForPreview } from "../../Redux/selectors/shopSelectors";
+import { IDataModel } from "../../Redux/types/shopTypes";
 
 interface IProps {
-  collections: IShopData;
+  collections: IDataModel[];
 }
 
 const CollectionsOverview: FC<IProps> = ({ collections }) => {
-  const renderCollections = () => {
-    // Because collections is no longer an array
-    for (let i in collections) {
-      const { id, title, items } = collections[i];
-
-      return (
-        <CollectionPreview key={id} title={title} items={items} />
-      );
-    }
-  };
-
   return (
-    <div className="collections-overview">{renderCollections()}</div>
+    <div className="collections-overview">
+      {collections.map(
+        ({ id, title, items, ...otherCollectionProps }) => (
+          <CollectionPreview
+            key={id}
+            title={title}
+            items={items}
+            {...otherCollectionProps}
+          />
+        )
+      )}
+    </div>
   );
 };
 
 interface IDesiredSelection {
-  collections: IShopData;
+  collections: IDataModel[];
 }
 
 const mapStateToProps = createStructuredSelector<
   IApplicationState,
   IDesiredSelection
 >({
-  collections: selectCollections,
+  collections: selectCollectionsForPreview,
 });
 
 export default connect(mapStateToProps)(CollectionsOverview);
