@@ -1,20 +1,17 @@
 import "./Directory.scss";
-import React, { useState } from "react";
+import React from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import MenuItem from "../MenuItem/MenuItem";
-import SECTIONS_DATA from "./sectionsData";
+import { selectDirectorySection } from "../../Redux/selectors/directorySelector";
+import { IDirectoryItem } from "../../Redux/types/directoryTypes";
+import { IApplicationState } from "../../Redux/store/store";
 
-export interface Cloth {
-  title: string;
-  imageUrl: string;
-  id: number;
-  size?: string;
-  linkUrl: string;
+interface IProps {
+  sections: IDirectoryItem[];
 }
 
-const Directory: React.FC = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [sections, setSections] = useState<Cloth[]>(SECTIONS_DATA);
-
+const Directory: React.FC<IProps> = ({ sections }) => {
   return (
     <div className="directory-menu">
       {sections.map(({ id, ...otherSectionProps }) => {
@@ -24,4 +21,15 @@ const Directory: React.FC = () => {
   );
 };
 
-export default Directory;
+interface IDesiredSelection {
+  sections: IDirectoryItem[];
+}
+
+const mapStateToProps = createStructuredSelector<
+  IApplicationState,
+  IDesiredSelection
+>({
+  sections: selectDirectorySection,
+});
+
+export default connect(mapStateToProps)(Directory);
