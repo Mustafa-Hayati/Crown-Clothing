@@ -8,21 +8,28 @@ import { selectCollections } from "../../Redux/selectors/shopSelectors";
 import { IShopData } from "../../Redux/types/shopTypes";
 
 interface IProps {
-  collections: IShopData[];
+  collections: IShopData;
 }
 
 const CollectionsOverview: FC<IProps> = ({ collections }) => {
-  return (
-    <div className="collections-overview">
-      {collections.map(({ title, items, id }) => (
+  const renderCollections = () => {
+    // Because collections is no longer an array
+    for (let i in collections) {
+      const { id, title, items } = collections[i];
+
+      return (
         <CollectionPreview key={id} title={title} items={items} />
-      ))}
-    </div>
+      );
+    }
+  };
+
+  return (
+    <div className="collections-overview">{renderCollections()}</div>
   );
 };
 
 interface IDesiredSelection {
-  collections: IShopData[];
+  collections: IShopData;
 }
 
 const mapStateToProps = createStructuredSelector<

@@ -5,13 +5,13 @@ import { Redirect, RouteComponentProps } from "react-router-dom";
 import CollectionItem from "../../components/CollectionItem/CollectionItem";
 import { selectCollection } from "../../Redux/selectors/shopSelectors";
 import { IApplicationState } from "../../Redux/store/store";
-import { IShopData } from "../../Redux/types/shopTypes";
+import { IDataModel } from "../../Redux/types/shopTypes";
 
 interface IProps
   extends RouteComponentProps<{
     collectionId: string;
   }> {
-  collection: IShopData | undefined;
+  collection: IDataModel | undefined;
 }
 
 const CollectionPage: FC<IProps> = ({ collection }) => {
