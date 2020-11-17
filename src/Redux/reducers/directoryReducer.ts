@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import SECTIONS_DATA from "../../components/Directory/sectionsData";
+import SECTIONS_DATA from "../data/sectionsData";
 import { IDirectoryState } from "../types/directoryTypes";
 
 const InitialDirectoryState: IDirectoryState = {

@@ -6,6 +6,7 @@ import { IApplicationState } from "../store/store";
 import { userReducer } from "./userReducer";
 import { cartReducer } from "./cartReducer";
 import { directoryReducer } from "./directoryReducer";
+import { shopReducer } from "./shopReducer";
 
 const persistConfig = {
   key: "root",
@@ -17,6 +18,7 @@ const rootReducer = combineReducers<IApplicationState>({
   user: userReducer,
   cart: cartReducer,
   directory: directoryReducer,
+  shop: shopReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

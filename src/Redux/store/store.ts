@@ -13,11 +13,13 @@ import rootReducer from "../reducers/rootReducer";
 import { IUserState } from "../types/userTypes";
 import { ICartState } from "../types/cartTypes";
 import { IDirectoryState } from "../types/directoryTypes";
+import { IShopState } from "../types/shopTypes";
 
 export interface IApplicationState {
   user: IUserState;
   cart: ICartState;
   directory: IDirectoryState;
+  shop: IShopState;
 }
 
 const middlewares: Middleware[] = [logger];

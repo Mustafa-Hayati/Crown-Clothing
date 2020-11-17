@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import CollectionPreview from "../../components/CollectionPreview/CollectionPreview";
-import SHOP_DATA from "./ShopData";
+import { selectCollections } from "../../Redux/selectors/shopSelectors";
+import { IApplicationState } from "../../Redux/store/store";
+import { IShopData } from "../../Redux/types/shopTypes";
 
-const ShopPage: React.FC = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [collections, setCollections] = useState(SHOP_DATA);
+interface IProps {
+  collections: IShopData[];
+}
 
+const ShopPage: React.FC<IProps> = ({ collections }) => {
   return (
     <div className="shop-page">
       {collections.map(({ title, items, id }) => (
@@ -15,4 +20,15 @@ const ShopPage: React.FC = () => {
   );
 };
 
-export default ShopPage;
+interface IDesiredSelection {
+  collections: IShopData[];
+}
+
+const mapStateToProps = createStructuredSelector<
+  IApplicationState,
+  IDesiredSelection
+>({
+  collections: selectCollections,
+});
+
+export default connect(mapStateToProps)(ShopPage);
