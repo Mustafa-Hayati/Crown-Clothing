@@ -1,11 +1,16 @@
-import "./Header.scss";
 import React from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 /** NOTE
  * This (⬇) is a special syntax in React for importing SVG
  */
+import {
+  HeaderContainer,
+  LogoContainer,
+  OptionsContainer,
+  OptionDiv,
+  OptionLink,
+} from "./HeaderStyles";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { IUser } from "../../Redux/types/userTypes";
 import { IApplicationState } from "../../Redux/store/store";
@@ -31,30 +36,22 @@ const Header: React.FC<IProps> = ({ currentUser, hidden }) => {
   };
 
   return (
-    <div className="header">
-      <Link className="logo-container" to="/">
+    <HeaderContainer>
+      <LogoContainer to="/">
         <Logo className="logo" />
-      </Link>
-      <div className="options">
-        <Link to="/shop" className="option">
-          SHOP
-        </Link>
-        <Link to="/contact" className="option">
-          CONTACT
-        </Link>
+      </LogoContainer>
+      <OptionsContainer>
+        <OptionLink to="/shop">SHOP</OptionLink>
+        <OptionLink to="/contact">CONTACT</OptionLink>
         {currentUser ? (
-          <div onClick={onSignOutClick} className="option">
-            SIGN OUT
-          </div>
+          <OptionDiv onClick={onSignOutClick}>SIGN OUT</OptionDiv>
         ) : (
-          <Link className="option" to="signin">
-            SGIN IN
-          </Link>
+          <OptionLink to="signin">SGIN IN</OptionLink>
         )}
         <CartIcon />
-      </div>
+      </OptionsContainer>
       {!hidden && <CartDropdown />}
-    </div>
+    </HeaderContainer>
   );
 };
 
