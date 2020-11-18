@@ -9,6 +9,7 @@ import {
 import { ICartItem } from "../../Redux/types/cartTypes";
 import { IApplicationState } from "../../Redux/store/store";
 import CheckoutItem from "../../components/CheckoutItem/CheckoutItem";
+import StripeButton from "../../components/StripeButton/StripeButton";
 
 interface IProps {
   cartItems: ICartItem[];
@@ -41,6 +42,12 @@ const CheckoutPage: FC<IProps> = ({ cartItems, totalPrice }) => {
       <div className="total">
         <span>TOTAL: ${totalPrice}</span>
       </div>
+      <div className="test-warning">
+        *Please use th efollowing test credit card for payments*
+        <br />
+        4242 4242 4242 4242 - Exp: 01/21 - CVV: 123
+      </div>
+      <StripeButton price={totalPrice} />
     </div>
   );
 };
