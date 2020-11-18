@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
 import CollectionsOverview from "../../components/CollectionsOverview/CollectionsOverview";
@@ -13,12 +13,20 @@ import {
   IShopUpdateCollections,
 } from "../../Redux/types/shopTypes";
 import { updateCollections } from "../../Redux/actions/shopActions";
+import WithSpinner from "../../components/WithSpinner/WithSpinner";
 
 interface IProps extends RouteComponentProps {
   updateCollections: typeof updateCollections;
 }
 
+const CollectionOverviewWithSpinner = WithSpinner(
+  CollectionsOverview
+);
+const CollectionPageWithSpinner = WithSpinner(CollectionPage);
+
 const ShopPage: React.FC<IProps> = ({ match, updateCollections }) => {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     let unsubscribeFromSnapshot: any = null;
 
@@ -29,6 +37,7 @@ const ShopPage: React.FC<IProps> = ({ match, updateCollections }) => {
           snapshot
         );
         updateCollections(collectionsMap);
+        setLoading(false);
       }
     );
 
@@ -44,12 +53,24 @@ const ShopPage: React.FC<IProps> = ({ match, updateCollections }) => {
         exact
         // match.path = /shop
         path={`${match.path}`}
-        component={CollectionsOverview}
+        render={props => (
+          <CollectionOverviewWithSpinner
+            isLoading={loading}
+            {...props}
+          />
+        )}
       />
 
       <Route
         path={`${match.path}/:collectionId`}
-        component={CollectionPage}
+        render={props => (
+          <CollectionPageWithSpinner
+            isLoading={loading}
+            {...props}
+            // inital Collection is null
+            collection={null}
+          />
+        )}
       />
     </div>
   );
