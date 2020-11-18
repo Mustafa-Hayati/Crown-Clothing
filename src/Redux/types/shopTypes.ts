@@ -21,5 +21,5 @@ export interface IShopData {
 }
 
 export interface IShopState {
-  collections: IShopData;
+  collections: IShopData | null;
 }

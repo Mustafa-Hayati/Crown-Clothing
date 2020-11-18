@@ -1,9 +1,8 @@
 import { Reducer } from "redux";
 import { IShopState, ShopActionTypes } from "../types/shopTypes";
-import SHOP_DATA from "./../data/ShopData";
 
 const initialShopState: IShopState = {
-  collections: SHOP_DATA,
+  collections: null,
 };
 
 export const shopReducer: Reducer<IShopState> = (

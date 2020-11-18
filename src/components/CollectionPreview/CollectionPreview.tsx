@@ -2,18 +2,31 @@ import "./CollectionPreview.scss";
 import React from "react";
 import CollectionItem from "../CollectionItem/CollectionItem";
 import { ICartItem } from "../../Redux/types/cartTypes";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 
-interface IProps {
+interface IProps extends RouteComponentProps {
   id?: number;
   title: string;
   routeName?: string;
   items: ICartItem[];
 }
 
-const CollectionPreview: React.FC<IProps> = ({ title, items }) => {
+const CollectionPreview: React.FC<IProps> = ({
+  history,
+  match,
+  title,
+  items,
+  routeName,
+}) => {
+  const onTitleClick = () => {
+    history.push(`${match.path}/${routeName}`);
+  };
+
   return (
     <div className="collection-preview">
-      <h1 className="title">{title.toUpperCase()}</h1>
+      <h1 className="title" onClick={onTitleClick}>
+        {title.toUpperCase()}
+      </h1>
       <div className="preview">
         {items
           .filter((_, idx) => idx < 4)
@@ -25,4 +38,4 @@ const CollectionPreview: React.FC<IProps> = ({ title, items }) => {
   );
 };
 
-export default CollectionPreview;
+export default withRouter(CollectionPreview);

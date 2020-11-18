@@ -11,11 +11,16 @@ interface IProps
   extends RouteComponentProps<{
     collectionId: string;
   }> {
-  collection: IDataModel | undefined;
+  collection: IDataModel | null;
 }
 
 const CollectionPage: FC<IProps> = ({ collection }) => {
   if (!collection) {
+    /* TODO
+     * Load an spinner during loading time.
+     * Redirect or do something else if there's not a
+     * collection.
+     */
     return <Redirect to="/" />;
   }
 
