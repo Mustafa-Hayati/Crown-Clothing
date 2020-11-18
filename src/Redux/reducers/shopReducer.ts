@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import { IShopState } from "../types/shopTypes";
+import { IShopState, ShopActionTypes } from "../types/shopTypes";
 import SHOP_DATA from "./../data/ShopData";
 
 const initialShopState: IShopState = {
@@ -11,6 +11,12 @@ export const shopReducer: Reducer<IShopState> = (
   action
 ) => {
   switch (action.type) {
+    case ShopActionTypes.UPDATE_COLLECTIONS:
+      return {
+        ...state,
+        collections: action.payload,
+      };
+
     default:
       return state;
   }

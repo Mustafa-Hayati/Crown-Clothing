@@ -1,5 +1,14 @@
 import { ICartItem } from "./cartTypes";
 
+export enum ShopActionTypes {
+  UPDATE_COLLECTIONS = "UPDATE_COLLECTIONS",
+}
+
+export interface IShopUpdateCollections {
+  type: ShopActionTypes.UPDATE_COLLECTIONS;
+  payload: IShopData;
+}
+
 export interface IDataModel {
   id: number;
   title: string;

@@ -1,6 +1,8 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+import { IDataModel, IShopData } from "../Redux/types/shopTypes";
+import { ICartItem } from "../Redux/types/cartTypes";
 
 const config = {
   apiKey: "AIzaSyBpUVV6peoetWbdXwi2HrFvVD2PFYHEHs8",
@@ -44,9 +46,13 @@ export const createUserProfileDocument = async (
 
 firebase.initializeApp(config);
 
+/* NOTE
+ * You can change IDataModel[] (⬇) to any[], if your data
+ * structure is different that IDataModel
+ */
 export const addCollectionsAndDocuments = async (
   collectionKey: string,
-  objectsToAdd: any[]
+  objectsToAdd: IDataModel[]
 ) => {
   const collectionRef = firestore.collection(collectionKey);
 
@@ -57,6 +63,33 @@ export const addCollectionsAndDocuments = async (
   });
 
   return await batch.commit();
+};
+
+export const convertCollectionsSnapshotToMap = (collections: any) => {
+  const transformedCollections: IDataModel[] = collections.docs.map(
+    (doc: any) => {
+      /* { title: string; items: ICartItem[] } */
+      const {
+        title,
+        items,
+      }: { title: string; items: ICartItem[] } = doc.data();
+
+      return {
+        routeName: encodeURI(title.toLowerCase()),
+        id: doc.id,
+        title,
+        items,
+      };
+    }
+  );
+
+  return transformedCollections.reduce(
+    (acc: IShopData, collection) => {
+      acc[collection.title.toLowerCase()] = collection;
+      return acc;
+    },
+    {}
+  );
 };
 
 export const auth = firebase.auth();
