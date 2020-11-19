@@ -2,20 +2,22 @@ import React, { useEffect } from "react";
 import { Route, RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { fetchCollectionsStartAsync } from "../../Redux/actions/shopActions";
+import { fetchCollectionsStart } from "../../Redux/actions/shopActions";
 import CollectionsOverviewContainer from "../../components/CollectionsOverview/CollectionsOverviewContainer";
 import CollectionPageContainer from "../CollectionPage/CollectionPageContainer";
+import { Dispatch } from "redux";
+import { IShopFetchCollectionsStart } from "../../Redux/types/shopTypes";
 
 interface IProps extends RouteComponentProps {
-  fetchCollectionsStartAsync: typeof fetchCollectionsStartAsync;
+  fetchCollectionsStart: typeof fetchCollectionsStart;
 }
 
 const ShopPage: React.FC<IProps> = ({
   match,
-  fetchCollectionsStartAsync,
+  fetchCollectionsStart,
 }) => {
   useEffect(() => {
-    fetchCollectionsStartAsync();
+    fetchCollectionsStart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -36,9 +38,10 @@ const ShopPage: React.FC<IProps> = ({
   );
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
-  fetchCollectionsStartAsync: () =>
-    dispatch(fetchCollectionsStartAsync()),
+const mapDispatchToProps = (
+  dispatch: Dispatch<IShopFetchCollectionsStart>
+) => ({
+  fetchCollectionsStart: () => dispatch(fetchCollectionsStart()),
 });
 
 export default connect(null, mapDispatchToProps)(ShopPage);

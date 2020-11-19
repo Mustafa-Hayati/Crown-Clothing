@@ -4,9 +4,9 @@ import {
   Store,
   Middleware,
 } from "redux";
-import thunk from "redux-thunk";
 import { persistStore } from "redux-persist";
 import logger from "redux-logger";
+import createSagaMiddleware from "redux-saga";
 
 import { composeWithDevTools } from "redux-devtools-extension";
 
@@ -15,6 +15,7 @@ import { IUserState } from "../types/userTypes";
 import { ICartState } from "../types/cartTypes";
 import { IDirectoryState } from "../types/directoryTypes";
 import { IShopState } from "../types/shopTypes";
+import { fetchCollectionsStart } from "../saga/ShopSagas";
 
 export interface IApplicationState {
   user: IUserState;
@@ -23,7 +24,9 @@ export interface IApplicationState {
   shop: IShopState;
 }
 
-const middlewares: Middleware[] = [thunk];
+const sagaMiddleware = createSagaMiddleware();
+
+const middlewares: Middleware[] = [sagaMiddleware];
 
 if (process.env.NODE_ENV === "development") {
   middlewares.push(logger);
@@ -33,6 +36,8 @@ const store: Store<IApplicationState> = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(...middlewares))
 );
+
+sagaMiddleware.run(fetchCollectionsStart);
 
 const persistor = persistStore(store);
 
