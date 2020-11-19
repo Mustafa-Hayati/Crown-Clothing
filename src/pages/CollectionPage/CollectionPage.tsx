@@ -16,7 +16,7 @@ interface IProps
 
 const CollectionPage: FC<IProps> = ({ collection }) => {
   if (!collection) {
-    return <Redirect to="/" />;
+    return <Redirect to="/shop" />;
   }
 
   const { title, items } = collection;
