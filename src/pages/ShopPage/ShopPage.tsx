@@ -28,22 +28,15 @@ const ShopPage: React.FC<IProps> = ({ match, updateCollections }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let unsubscribeFromSnapshot: any = null;
-
     const collectionRef = firestore.collection(`collections`);
-    unsubscribeFromSnapshot = collectionRef.onSnapshot(
-      async snapshot => {
-        const collectionsMap = convertCollectionsSnapshotToMap(
-          snapshot
-        );
-        updateCollections(collectionsMap);
-        setLoading(false);
-      }
-    );
 
-    return () => {
-      unsubscribeFromSnapshot();
-    };
+    collectionRef.get().then(snapshot => {
+      const collectionsMap = convertCollectionsSnapshotToMap(
+        snapshot
+      );
+      updateCollections(collectionsMap);
+      setLoading(false);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
