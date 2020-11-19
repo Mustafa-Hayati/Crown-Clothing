@@ -4,6 +4,7 @@ import {
   Store,
   Middleware,
 } from "redux";
+import thunk from "redux-thunk";
 import { persistStore } from "redux-persist";
 import logger from "redux-logger";
 
@@ -22,7 +23,7 @@ export interface IApplicationState {
   shop: IShopState;
 }
 
-const middlewares: Middleware[] = [];
+const middlewares: Middleware[] = [thunk];
 
 if (process.env.NODE_ENV === "development") {
   middlewares.push(logger);

@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Route, RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import CollectionsOverview from "../../components/CollectionsOverview/CollectionsOverview";
 import CollectionPage from "../CollectionPage/CollectionPage";
-import {
-  firestore,
-  convertCollectionsSnapshotToMap,
-} from "../../firebase/firebase.utils";
-import { Dispatch } from "redux";
-import {
-  IShopData,
-  IShopUpdateCollections,
-} from "../../Redux/types/shopTypes";
-import { updateCollections } from "../../Redux/actions/shopActions";
+
 import WithSpinner from "../../components/WithSpinner/WithSpinner";
+import { IApplicationState } from "../../Redux/store/store";
+import { selectIsCollectionFetching } from "../../Redux/selectors/shopSelectors";
+import { fetchCollectionsStartAsync } from "../../Redux/actions/shopActions";
 
 interface IProps extends RouteComponentProps {
-  updateCollections: typeof updateCollections;
+  isCollectionFetching: boolean;
+  fetchCollectionsStartAsync: typeof fetchCollectionsStartAsync;
 }
 
 const CollectionOverviewWithSpinner = WithSpinner(
@@ -24,19 +20,13 @@ const CollectionOverviewWithSpinner = WithSpinner(
 );
 const CollectionPageWithSpinner = WithSpinner(CollectionPage);
 
-const ShopPage: React.FC<IProps> = ({ match, updateCollections }) => {
-  const [loading, setLoading] = useState(true);
-
+const ShopPage: React.FC<IProps> = ({
+  match,
+  isCollectionFetching,
+  fetchCollectionsStartAsync,
+}) => {
   useEffect(() => {
-    const collectionRef = firestore.collection(`collections`);
-
-    collectionRef.get().then(snapshot => {
-      const collectionsMap = convertCollectionsSnapshotToMap(
-        snapshot
-      );
-      updateCollections(collectionsMap);
-      setLoading(false);
-    });
+    fetchCollectionsStartAsync();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -48,7 +38,7 @@ const ShopPage: React.FC<IProps> = ({ match, updateCollections }) => {
         path={`${match.path}`}
         render={props => (
           <CollectionOverviewWithSpinner
-            isLoading={loading}
+            isLoading={isCollectionFetching}
             {...props}
           />
         )}
@@ -58,7 +48,7 @@ const ShopPage: React.FC<IProps> = ({ match, updateCollections }) => {
         path={`${match.path}/:collectionId`}
         render={props => (
           <CollectionPageWithSpinner
-            isLoading={loading}
+            isLoading={isCollectionFetching}
             {...props}
             // inital Collection is null
             collection={null}
@@ -69,11 +59,20 @@ const ShopPage: React.FC<IProps> = ({ match, updateCollections }) => {
   );
 };
 
-const mapDispatchToProps = (
-  dispatch: Dispatch<IShopUpdateCollections>
-) => ({
-  updateCollections: (collectionsMap: IShopData) =>
-    dispatch(updateCollections(collectionsMap)),
+interface IDesiredSelection {
+  isCollectionFetching: boolean;
+}
+
+const mapStateToProps = createStructuredSelector<
+  IApplicationState,
+  IDesiredSelection
+>({
+  isCollectionFetching: selectIsCollectionFetching,
 });
 
-export default connect(null, mapDispatchToProps)(ShopPage);
+const mapDispatchToProps = (dispatch: any) => ({
+  fetchCollectionsStartAsync: () =>
+    dispatch(fetchCollectionsStartAsync()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);
