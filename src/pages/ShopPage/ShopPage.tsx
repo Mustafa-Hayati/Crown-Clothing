@@ -9,10 +9,12 @@ import WithSpinner from "../../components/WithSpinner/WithSpinner";
 import { IApplicationState } from "../../Redux/store/store";
 import { selectIsCollectionFetching } from "../../Redux/selectors/shopSelectors";
 import { fetchCollectionsStartAsync } from "../../Redux/actions/shopActions";
+import { selectIsCollectionLoaded } from "./../../Redux/selectors/shopSelectors";
 
 interface IProps extends RouteComponentProps {
   isCollectionFetching: boolean;
   fetchCollectionsStartAsync: typeof fetchCollectionsStartAsync;
+  isCollectionsLoaded: boolean;
 }
 
 const CollectionOverviewWithSpinner = WithSpinner(
@@ -24,6 +26,7 @@ const ShopPage: React.FC<IProps> = ({
   match,
   isCollectionFetching,
   fetchCollectionsStartAsync,
+  isCollectionsLoaded,
 }) => {
   useEffect(() => {
     fetchCollectionsStartAsync();
@@ -48,7 +51,7 @@ const ShopPage: React.FC<IProps> = ({
         path={`${match.path}/:collectionId`}
         render={props => (
           <CollectionPageWithSpinner
-            isLoading={isCollectionFetching}
+            isLoading={!isCollectionsLoaded}
             {...props}
             // inital Collection is null
             collection={null}
@@ -61,6 +64,7 @@ const ShopPage: React.FC<IProps> = ({
 
 interface IDesiredSelection {
   isCollectionFetching: boolean;
+  isCollectionsLoaded: boolean;
 }
 
 const mapStateToProps = createStructuredSelector<
@@ -68,6 +72,7 @@ const mapStateToProps = createStructuredSelector<
   IDesiredSelection
 >({
   isCollectionFetching: selectIsCollectionFetching,
+  isCollectionsLoaded: selectIsCollectionLoaded,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
