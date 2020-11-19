@@ -15,7 +15,7 @@ import { IUserState } from "../types/userTypes";
 import { ICartState } from "../types/cartTypes";
 import { IDirectoryState } from "../types/directoryTypes";
 import { IShopState } from "../types/shopTypes";
-import { fetchCollectionsStart } from "../saga/ShopSagas";
+import rootSaga from "../saga/rootSaga";
 
 export interface IApplicationState {
   user: IUserState;
@@ -37,7 +37,7 @@ const store: Store<IApplicationState> = createStore(
   composeWithDevTools(applyMiddleware(...middlewares))
 );
 
-sagaMiddleware.run(fetchCollectionsStart);
+sagaMiddleware.run(rootSaga);
 
 const persistor = persistStore(store);
 
