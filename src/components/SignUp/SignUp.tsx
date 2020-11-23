@@ -23,6 +23,8 @@ const SignUp: FC<IProps> = ({ signUpStart }) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
+      setPassword("");
+      setConfirmPassword("");
       return alert(`Passwords don't match`);
     }
 
