@@ -1,6 +1,5 @@
 import "./App.css";
 import React, { /* useState, */ FC, useEffect } from "react";
-import { Dispatch } from "redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -9,27 +8,19 @@ import HomePage from "./pages/HomePage/HomePage";
 import ShopPage from "./pages/ShopPage/ShopPage";
 import SignInAndSignUp from "./pages/SignInAndSignUp/SingInAndSignUp";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
-import { setCurrentUser } from "./Redux/actions/userActions";
-import {
-  IUser,
-  IUserSetCurrentAction,
-} from "./Redux/types/userTypes";
+import { IUser } from "./Redux/types/userTypes";
 
 // firebase and authentication
 // import firebase from "firebase";
-import {
-  auth,
-  createUserProfileDocument,
-} from "./firebase/firebase.utils";
+
 import { IApplicationState } from "./Redux/store/store";
 import { selectCurrentUser } from "./Redux/selectors/userSelectors";
 
 interface IProps {
   currentUser: IUser | null;
-  setCurrentUser: typeof setCurrentUser;
 }
 
-const App: FC<IProps> = ({ currentUser, setCurrentUser }) => {
+const App: FC<IProps> = ({ currentUser }) => {
   useEffect(() => {
     // const unsubscribeFromAuth = auth.onAuthStateChanged(
     //   async userAuth => {
@@ -83,12 +74,4 @@ const mapStateToProps = createStructuredSelector<
   currentUser: selectCurrentUser,
 });
 
-const mapDispatchToProps = (
-  dispatch: Dispatch<IUserSetCurrentAction>
-) => {
-  return {
-    setCurrentUser: (user: IUser) => dispatch(setCurrentUser(user)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

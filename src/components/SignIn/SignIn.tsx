@@ -4,16 +4,22 @@ import { connect } from "react-redux";
 import FormInput from "../FormInput/FormInput";
 import CustomButton from "../CustomButton/CustomButton";
 
-import { auth } from "../../firebase/firebase.utils";
-import { googleSignInStart } from "../../Redux/actions/userActions";
+import {
+  googleSignInStart,
+  emailSignInStart,
+} from "../../Redux/actions/userActions";
 import { Dispatch } from "redux";
-import { IUserGoogleSignInStart } from "../../Redux/types/userTypes";
+import { UserActions } from "../../Redux/types/userTypes";
 
 interface IProps {
   googleSignInStart: typeof googleSignInStart;
+  emailSignInStart: typeof emailSignInStart;
 }
 
-const SignIn: FC<IProps> = ({ googleSignInStart }) => {
+const SignIn: FC<IProps> = ({
+  googleSignInStart,
+  emailSignInStart,
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,13 +27,7 @@ const SignIn: FC<IProps> = ({ googleSignInStart }) => {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      setPassword("");
-      setEmail("");
-    } catch (error) {
-      console.error(`❌`, error);
-    }
+    emailSignInStart(email, password);
   };
 
   const onInputChange = (
@@ -83,11 +83,16 @@ const SignIn: FC<IProps> = ({ googleSignInStart }) => {
   );
 };
 
-const mapDispatchToProps = (
-  dispatch: Dispatch<IUserGoogleSignInStart>
-) => {
+const mapDispatchToProps = (dispatch: Dispatch<UserActions>) => {
   return {
     googleSignInStart: () => dispatch(googleSignInStart()),
+    emailSignInStart: (email: string, password: string) =>
+      dispatch(
+        emailSignInStart({
+          email,
+          password,
+        })
+      ),
   };
 };
 

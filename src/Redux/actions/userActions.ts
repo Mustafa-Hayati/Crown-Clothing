@@ -2,57 +2,35 @@ import { ActionCreator /* , AnyAction, Dispatch */ } from "redux";
 
 import {
   IUser,
-  IUserEmailSignInFailure,
   IUserEmailSignInStart,
-  IUserEmailSignInSuccess,
-  IUserGoogleSignInFailure,
   IUserGoogleSignInStart,
-  IUserGoogleSignInSuccess,
-  IUserSetCurrentAction,
   UserActionTypes,
+  IUserSignInSuccess,
+  IUserSignInFailure,
 } from "../types/userTypes";
-
-export const setCurrentUser: ActionCreator<IUserSetCurrentAction> = (
-  user: IUser
-) => ({
-  type: UserActionTypes.SET_CURRENT_USER,
-  payload: user,
-});
 
 export const googleSignInStart: ActionCreator<IUserGoogleSignInStart> = () => ({
   type: UserActionTypes.GOOGLE_SIGN_IN_START,
 });
 
-export const googleSignInSuccess: ActionCreator<IUserGoogleSignInSuccess> = (
+export const signInSuccess: ActionCreator<IUserSignInSuccess> = (
   user: IUser
 ) => ({
-  type: UserActionTypes.GOOGLE_SIGN_IN_SUCCESS,
+  type: UserActionTypes.SIGN_IN_SUCCESS,
   payload: user,
 });
 
-export const googleSignInFailure: ActionCreator<IUserGoogleSignInFailure> = (
+export const signInFailure: ActionCreator<IUserSignInFailure> = (
   error: string
 ) => ({
-  type: UserActionTypes.GOOGLE_SIGN_IN_FAILURE,
+  type: UserActionTypes.SIGN_IN_FAILURE,
   payload: error,
 });
 
-// REVIEW: Check th email and password type again.
-export const emailSignInStart: ActionCreator<IUserEmailSignInStart> = emailAndPassword => ({
+export const emailSignInStart: ActionCreator<IUserEmailSignInStart> = (emailAndPassword: {
+  email: string;
+  password: string;
+}) => ({
   type: UserActionTypes.EMAIL_SIGN_IN_START,
   payload: emailAndPassword,
-});
-
-export const emailSignInSuccess: ActionCreator<IUserEmailSignInSuccess> = (
-  user: IUser
-) => ({
-  type: UserActionTypes.EMAIL_SIGN_IN_SUCCESS,
-  payload: user,
-});
-
-export const emailSignInFailure: ActionCreator<IUserEmailSignInFailure> = (
-  error: string
-) => ({
-  type: UserActionTypes.EMAIL_SIGN_IN_FAILURE,
-  payload: error,
 });
