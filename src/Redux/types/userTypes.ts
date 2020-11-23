@@ -3,6 +3,7 @@ export enum UserActionTypes {
   EMAIL_SIGN_IN_START = "EMAIL_SIGN_IN_START",
   SIGN_IN_SUCCESS = "SIGN_IN_SUCCESS",
   SIGN_IN_FAILURE = "SIGN_IN_FAILURE",
+  CHECK_USER_SESSION = "CHECK_USER_SESSION",
 }
 
 export interface IUser {
@@ -37,11 +38,16 @@ export interface IUserEmailSignInStart {
   };
 }
 
+export interface IUserCheckUserSession {
+  type: UserActionTypes.CHECK_USER_SESSION;
+}
+
 export type UserActions =
   | IUserGoogleSignInStart
   | IUserEmailSignInStart
   | IUserSignInSuccess
-  | IUserSignInFailure;
+  | IUserSignInFailure
+  | IUserCheckUserSession;
 
 export interface IUserState {
   readonly currentUser: IUser | null;

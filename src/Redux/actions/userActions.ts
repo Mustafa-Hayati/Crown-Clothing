@@ -7,6 +7,7 @@ import {
   UserActionTypes,
   IUserSignInSuccess,
   IUserSignInFailure,
+  IUserCheckUserSession,
 } from "../types/userTypes";
 
 export const googleSignInStart: ActionCreator<IUserGoogleSignInStart> = () => ({
@@ -33,4 +34,8 @@ export const emailSignInStart: ActionCreator<IUserEmailSignInStart> = (emailAndP
 }) => ({
   type: UserActionTypes.EMAIL_SIGN_IN_START,
   payload: emailAndPassword,
+});
+
+export const checkUserSession: ActionCreator<IUserCheckUserSession> = () => ({
+  type: UserActionTypes.CHECK_USER_SESSION,
 });

@@ -8,39 +8,27 @@ import HomePage from "./pages/HomePage/HomePage";
 import ShopPage from "./pages/ShopPage/ShopPage";
 import SignInAndSignUp from "./pages/SignInAndSignUp/SingInAndSignUp";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
-import { IUser } from "./Redux/types/userTypes";
+import {
+  IUser,
+  IUserCheckUserSession,
+} from "./Redux/types/userTypes";
 
 // firebase and authentication
 // import firebase from "firebase";
 
 import { IApplicationState } from "./Redux/store/store";
 import { selectCurrentUser } from "./Redux/selectors/userSelectors";
+import { Dispatch } from "redux";
+import { checkUserSession } from "./Redux/actions/userActions";
 
 interface IProps {
   currentUser: IUser | null;
+  checkUserSession: typeof checkUserSession;
 }
 
-const App: FC<IProps> = ({ currentUser }) => {
+const App: FC<IProps> = ({ currentUser, checkUserSession }) => {
   useEffect(() => {
-    // const unsubscribeFromAuth = auth.onAuthStateChanged(
-    //   async userAuth => {
-    //     if (userAuth) {
-    //       const userRef = await createUserProfileDocument(userAuth);
-    //       userRef?.onSnapshot(snapShot => {
-    //         setCurrentUser({
-    //           id: snapShot.id,
-    //           ...snapShot.data(),
-    //         });
-    //       });
-    //     } else {
-    //       // set user to null
-    //       setCurrentUser(userAuth);
-    //     }
-    //   }
-    // );
-    // return () => {
-    //   unsubscribeFromAuth();
-    // };
+    checkUserSession();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -74,4 +62,12 @@ const mapStateToProps = createStructuredSelector<
   currentUser: selectCurrentUser,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (
+  dispatch: Dispatch<IUserCheckUserSession>
+) => {
+  return {
+    checkUserSession: () => dispatch(checkUserSession()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
