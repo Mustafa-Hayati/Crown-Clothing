@@ -3,6 +3,7 @@ export enum CartActionTypes {
   ADD_ITEM = "ADD_ITEM",
   REMOVE_ITEM = "REMOVE_ITEM",
   CLEAR_ITEM_FROM_CART = "CLEAR_ITEM_FROM_CART",
+  CLEAR_CART = "CLEAR_CART",
 }
 
 export interface ICartToggleHidden {
@@ -32,11 +33,16 @@ export interface ICartClearItem {
   payload: ICartItem;
 }
 
+export interface ICartClearCart {
+  type: CartActionTypes.CLEAR_CART;
+}
+
 export type CartActions =
   | ICartToggleHidden
   | ICartAddItem
   | ICartRemoveItem
-  | ICartClearItem;
+  | ICartClearItem
+  | ICartClearCart;
 
 export interface ICartState {
   readonly hidden: boolean;

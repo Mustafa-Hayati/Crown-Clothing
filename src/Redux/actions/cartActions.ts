@@ -3,6 +3,7 @@ import { ActionCreator /* , AnyAction, Dispatch */ } from "redux";
 import {
   CartActionTypes,
   ICartAddItem,
+  ICartClearCart,
   ICartClearItem,
   ICartItem,
   ICartRemoveItem,
@@ -32,4 +33,8 @@ export const clearItemFromCart: ActionCreator<ICartClearItem> = (
 ): ICartClearItem => ({
   type: CartActionTypes.CLEAR_ITEM_FROM_CART,
   payload: item,
+});
+
+export const clearCart: ActionCreator<ICartClearCart> = () => ({
+  type: CartActionTypes.CLEAR_CART,
 });

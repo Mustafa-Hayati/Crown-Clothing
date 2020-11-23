@@ -49,6 +49,13 @@ export const cartReducer: Reducer<ICartState, CartActions> = (
         ),
       };
 
+    case CartActionTypes.CLEAR_CART:
+      return {
+        ...state,
+        cartItems: [],
+        hidden: true,
+      };
+
     default:
       return state;
   }
