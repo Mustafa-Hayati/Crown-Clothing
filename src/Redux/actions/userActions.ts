@@ -11,6 +11,9 @@ import {
   IUserSignOutStart,
   IUserSignOutSuccess,
   IUserSignOutFailure,
+  IUserSignUpStart,
+  IUserSignUpSuccess,
+  IUserSignUpFailure,
 } from "../types/userTypes";
 
 export const googleSignInStart: ActionCreator<IUserGoogleSignInStart> = () => ({
@@ -55,5 +58,33 @@ export const signOutFailure: ActionCreator<IUserSignOutFailure> = (
   error: string
 ) => ({
   type: UserActionTypes.SIGN_OUT_FAILURE,
+  payload: error,
+});
+
+export const signUpStart: ActionCreator<IUserSignUpStart> = (userCredentials: {
+  email: string;
+  password: string;
+  displayName: string;
+}) => ({
+  type: UserActionTypes.SIGN_UP_START,
+  payload: userCredentials,
+});
+
+export const signUpSuccess: ActionCreator<IUserSignUpSuccess> = ({
+  user,
+  additionalData,
+}: {
+  user: IUser;
+  additionalData: any;
+}): IUserSignUpSuccess => ({
+  type: UserActionTypes.SIGN_UP_SUCCESS,
+  payload: {
+    user,
+    additionalData,
+  },
+});
+
+export const signUpFailure: ActionCreator<IUserSignUpFailure> = error => ({
+  type: UserActionTypes.SIGN_UP_FAILURE,
   payload: error,
 });

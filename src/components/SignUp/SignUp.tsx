@@ -1,13 +1,17 @@
 import "./SignUp.scss";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
+import { connect } from "react-redux";
 import FormInput from "../FormInput/FormInput";
 import CustomButton from "../CustomButton/CustomButton";
-import {
-  auth,
-  createUserProfileDocument,
-} from "../../firebase/firebase.utils";
+import { Dispatch } from "redux";
+import { IUserSignUpStart } from "../../Redux/types/userTypes";
+import { signUpStart } from "../../Redux/actions/userActions";
 
-const SignUp: React.FC = () => {
+interface IProps {
+  signUpStart: typeof signUpStart;
+}
+
+const SignUp: FC<IProps> = ({ signUpStart }) => {
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,22 +26,11 @@ const SignUp: React.FC = () => {
       return alert(`Passwords don't match`);
     }
 
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-
-      await createUserProfileDocument(user, { displayName });
-
-      // clean up the form
-      setDisplayName("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
-    } catch (error) {
-      console.error(`❌`, error);
-    }
+    signUpStart({
+      email,
+      displayName,
+      password,
+    });
   };
 
   const onInputChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -100,4 +93,14 @@ const SignUp: React.FC = () => {
   );
 };
 
-export default SignUp;
+const mapDispatchToProps = (
+  dispatch: Dispatch<IUserSignUpStart>
+) => ({
+  signUpStart: (userCredentials: {
+    email: string;
+    password: string;
+    displayName: string;
+  }) => dispatch(signUpStart(userCredentials)),
+});
+
+export default connect(null, mapDispatchToProps)(SignUp);
