@@ -31,27 +31,25 @@ interface IProps {
 
 const App: FC<IProps> = ({ currentUser, setCurrentUser }) => {
   useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(
-      async userAuth => {
-        if (userAuth) {
-          const userRef = await createUserProfileDocument(userAuth);
-
-          userRef?.onSnapshot(snapShot => {
-            setCurrentUser({
-              id: snapShot.id,
-              ...snapShot.data(),
-            });
-          });
-        } else {
-          // set user to null
-          setCurrentUser(userAuth);
-        }
-      }
-    );
-
-    return () => {
-      unsubscribeFromAuth();
-    };
+    // const unsubscribeFromAuth = auth.onAuthStateChanged(
+    //   async userAuth => {
+    //     if (userAuth) {
+    //       const userRef = await createUserProfileDocument(userAuth);
+    //       userRef?.onSnapshot(snapShot => {
+    //         setCurrentUser({
+    //           id: snapShot.id,
+    //           ...snapShot.data(),
+    //         });
+    //       });
+    //     } else {
+    //       // set user to null
+    //       setCurrentUser(userAuth);
+    //     }
+    //   }
+    // );
+    // return () => {
+    //   unsubscribeFromAuth();
+    // };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

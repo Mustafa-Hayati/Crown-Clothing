@@ -1,14 +1,19 @@
 import "./SignIn.scss";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
+import { connect } from "react-redux";
 import FormInput from "../FormInput/FormInput";
 import CustomButton from "../CustomButton/CustomButton";
 
-import {
-  auth,
-  signInWithGoogle,
-} from "../../firebase/firebase.utils";
+import { auth } from "../../firebase/firebase.utils";
+import { googleSignInStart } from "../../Redux/actions/userActions";
+import { Dispatch } from "redux";
+import { IUserGoogleSignInStart } from "../../Redux/types/userTypes";
 
-const SignIn: React.FC = () => {
+interface IProps {
+  googleSignInStart: typeof googleSignInStart;
+}
+
+const SignIn: FC<IProps> = ({ googleSignInStart }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -65,7 +70,11 @@ const SignIn: React.FC = () => {
         />
         <div className="buttons">
           <CustomButton type="submit">Sign In</CustomButton>
-          <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+          <CustomButton
+            type="button"
+            onClick={googleSignInStart}
+            isGoogleSignIn
+          >
             Sign In With Google
           </CustomButton>
         </div>
@@ -74,4 +83,12 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+const mapDispatchToProps = (
+  dispatch: Dispatch<IUserGoogleSignInStart>
+) => {
+  return {
+    googleSignInStart: () => dispatch(googleSignInStart()),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SignIn);
