@@ -4,6 +4,9 @@ export enum UserActionTypes {
   SIGN_IN_SUCCESS = "SIGN_IN_SUCCESS",
   SIGN_IN_FAILURE = "SIGN_IN_FAILURE",
   CHECK_USER_SESSION = "CHECK_USER_SESSION",
+  SIGN_OUT_START = "SIGN_OUT_START",
+  SIGN_OUT_SUCCESS = "SIGN_OUT_SUCCESS",
+  SIGN_OUT_FAILURE = "SIGN_OUT_FAILURE",
 }
 
 export interface IUser {
@@ -42,12 +45,28 @@ export interface IUserCheckUserSession {
   type: UserActionTypes.CHECK_USER_SESSION;
 }
 
+export interface IUserSignOutStart {
+  type: UserActionTypes.SIGN_OUT_START;
+}
+
+export interface IUserSignOutSuccess {
+  type: UserActionTypes.SIGN_OUT_SUCCESS;
+}
+
+export interface IUserSignOutFailure {
+  type: UserActionTypes.SIGN_OUT_FAILURE;
+  payload: string;
+}
+
 export type UserActions =
   | IUserGoogleSignInStart
   | IUserEmailSignInStart
   | IUserSignInSuccess
   | IUserSignInFailure
-  | IUserCheckUserSession;
+  | IUserCheckUserSession
+  | IUserSignOutStart
+  | IUserSignOutSuccess
+  | IUserSignOutFailure;
 
 export interface IUserState {
   readonly currentUser: IUser | null;

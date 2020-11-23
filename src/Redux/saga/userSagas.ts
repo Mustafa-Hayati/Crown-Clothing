@@ -5,7 +5,12 @@ import {
   createUserProfileDocument,
   getCurrentUser,
 } from "../../firebase/firebase.utils";
-import { signInSuccess, signInFailure } from "../actions/userActions";
+import {
+  signInSuccess,
+  signInFailure,
+  signOutSuccess,
+  signOutFailure,
+} from "../actions/userActions";
 import {
   IUserEmailSignInStart,
   UserActionTypes,
@@ -82,10 +87,24 @@ export function* onCheckUserSession() {
   );
 }
 
+export function* signOut() {
+  try {
+    yield auth.signOut();
+    yield put(signOutSuccess());
+  } catch (error) {
+    yield put(signOutFailure(error));
+  }
+}
+
+export function* onSignOutStart() {
+  yield takeLatest(UserActionTypes.SIGN_OUT_START, signOut);
+}
+
 export function* userSagas() {
   yield all([
     call(onGoogleSignInStart),
     call(onEmailSignInStart),
     call(onCheckUserSession),
+    call(onSignOutStart),
   ]);
 }

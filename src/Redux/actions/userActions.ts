@@ -8,6 +8,9 @@ import {
   IUserSignInSuccess,
   IUserSignInFailure,
   IUserCheckUserSession,
+  IUserSignOutStart,
+  IUserSignOutSuccess,
+  IUserSignOutFailure,
 } from "../types/userTypes";
 
 export const googleSignInStart: ActionCreator<IUserGoogleSignInStart> = () => ({
@@ -38,4 +41,19 @@ export const emailSignInStart: ActionCreator<IUserEmailSignInStart> = (emailAndP
 
 export const checkUserSession: ActionCreator<IUserCheckUserSession> = () => ({
   type: UserActionTypes.CHECK_USER_SESSION,
+});
+
+export const signOutStart: ActionCreator<IUserSignOutStart> = () => ({
+  type: UserActionTypes.SIGN_OUT_START,
+});
+
+export const signOutSuccess: ActionCreator<IUserSignOutSuccess> = () => ({
+  type: UserActionTypes.SIGN_OUT_SUCCESS,
+});
+
+export const signOutFailure: ActionCreator<IUserSignOutFailure> = (
+  error: string
+) => ({
+  type: UserActionTypes.SIGN_OUT_FAILURE,
+  payload: error,
 });

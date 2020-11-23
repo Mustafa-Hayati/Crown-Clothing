@@ -22,7 +22,15 @@ export const userReducer: Reducer<IUserState, UserActions> = (
         error: "",
       };
 
+    case UserActionTypes.SIGN_OUT_SUCCESS:
+      return {
+        ...state,
+        currentUser: null,
+        error: "",
+      };
+
     case UserActionTypes.SIGN_IN_FAILURE:
+    case UserActionTypes.SIGN_OUT_FAILURE:
       return {
         ...state,
         error: action.payload,

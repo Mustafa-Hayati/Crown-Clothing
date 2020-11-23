@@ -1,39 +1,40 @@
-import React from "react";
+import React, { FC } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-/** NOTE
- * This (⬇) is a special syntax in React for importing SVG
- */
 import {
   HeaderContainer,
   LogoContainer,
   OptionsContainer,
   OptionLink,
 } from "./HeaderStyles";
+/** NOTE
+ * This (⬇) is a special syntax in React for importing SVG
+ */
 import { ReactComponent as Logo } from "../../assets/crown.svg";
-import { IUser } from "../../Redux/types/userTypes";
+import {
+  IUser,
+  IUserSignOutStart,
+} from "../../Redux/types/userTypes";
 import { IApplicationState } from "../../Redux/store/store";
 import CartIcon from "../CartIcon/CartIcon";
 import CartDropdown from "../CartDropdown/CartDropdown";
 import { selectCurrentUser } from "../../Redux/selectors/userSelectors";
 import { selectCartHidden } from "../../Redux/selectors/cartSelectors";
 
-// Showing Sign in and Sign out
-// import firebase from "firebase";
-import { auth } from "../../firebase/firebase.utils";
+import { Dispatch } from "redux";
+import { signOutStart } from "../../Redux/actions/userActions";
 
 interface IProps {
   currentUser: IUser | null;
   hidden: boolean;
+  signOutStart: typeof signOutStart;
 }
 
-const Header: React.FC<IProps> = ({ currentUser, hidden }) => {
-  const onSignOutClick = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    auth.signOut();
-  };
-
+const Header: FC<IProps> = ({
+  currentUser,
+  hidden,
+  signOutStart,
+}) => {
   return (
     <HeaderContainer>
       <LogoContainer to="/">
@@ -43,7 +44,7 @@ const Header: React.FC<IProps> = ({ currentUser, hidden }) => {
         <OptionLink to="/shop">SHOP</OptionLink>
         <OptionLink to="/contact">CONTACT</OptionLink>
         {currentUser ? (
-          <OptionLink as="div" onClick={onSignOutClick}>
+          <OptionLink as="div" onClick={signOutStart}>
             SIGN OUT
           </OptionLink>
         ) : (
@@ -70,4 +71,12 @@ const mapStateToProps = createStructuredSelector<
   hidden: selectCartHidden,
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (
+  dispatch: Dispatch<IUserSignOutStart>
+) => {
+  return {
+    signOutStart: () => dispatch(signOutStart()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
