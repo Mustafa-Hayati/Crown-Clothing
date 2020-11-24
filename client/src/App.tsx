@@ -12,10 +12,6 @@ import {
   IUser,
   IUserCheckUserSession,
 } from "./Redux/types/userTypes";
-
-// firebase and authentication
-// import firebase from "firebase";
-
 import { IApplicationState } from "./Redux/store/store";
 import { selectCurrentUser } from "./Redux/selectors/userSelectors";
 import { Dispatch } from "redux";

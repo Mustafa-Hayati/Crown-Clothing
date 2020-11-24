@@ -24,7 +24,6 @@ const StripeButton: FC<IProps> = ({ price }) => {
           `There was an issue with your payment. Please make sure you use the provided credit cart`
         );
         console.log(error);
-        // console.log("Payment Error: ", JSON.parse(error));
       });
   };
   return (
