@@ -3,6 +3,7 @@
   "description": "A fictional e-commerce clothing app named crown clothing. Created using TypeScript, React and Redux",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:4000",
   "author": "Mustafa Hayati",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.5",
