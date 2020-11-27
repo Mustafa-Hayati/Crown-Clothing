@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { Route, RouteComponentProps } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -12,10 +12,7 @@ interface IProps extends RouteComponentProps {
   fetchCollectionsStart: typeof fetchCollectionsStart;
 }
 
-const ShopPage: React.FC<IProps> = ({
-  match,
-  fetchCollectionsStart,
-}) => {
+const ShopPage: FC<IProps> = ({ match, fetchCollectionsStart }) => {
   useEffect(() => {
     fetchCollectionsStart();
     // eslint-disable-next-line react-hooks/exhaustive-deps

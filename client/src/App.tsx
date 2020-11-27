@@ -1,4 +1,3 @@
-import "./App.css";
 import React, { /* useState, */ FC, useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
@@ -16,6 +15,7 @@ import { IApplicationState } from "./Redux/store/store";
 import { selectCurrentUser } from "./Redux/selectors/userSelectors";
 import { Dispatch } from "redux";
 import { checkUserSession } from "./Redux/actions/userActions";
+import { GlobalStyle } from "./globalStyles";
 
 interface IProps {
   currentUser: IUser | null;
@@ -30,6 +30,7 @@ const App: FC<IProps> = ({ currentUser, checkUserSession }) => {
 
   return (
     <div>
+      <GlobalStyle />
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />

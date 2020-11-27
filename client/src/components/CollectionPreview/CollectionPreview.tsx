@@ -1,5 +1,5 @@
 import "./CollectionPreview.scss";
-import React from "react";
+import React, { FC } from "react";
 import CollectionItem from "../CollectionItem/CollectionItem";
 import { ICartItem } from "../../Redux/types/cartTypes";
 import { RouteComponentProps, withRouter } from "react-router-dom";
@@ -11,7 +11,7 @@ interface IProps extends RouteComponentProps {
   items: ICartItem[];
 }
 
-const CollectionPreview: React.FC<IProps> = ({
+const CollectionPreview: FC<IProps> = ({
   history,
   match,
   title,
