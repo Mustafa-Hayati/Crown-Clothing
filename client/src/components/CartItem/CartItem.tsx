@@ -1,5 +1,5 @@
 import "./CartItem.scss";
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import { ICartItem } from "../../Redux/types/cartTypes";
 
 interface IProps {
@@ -22,4 +22,4 @@ const CartItem: FC<IProps> = ({
   );
 };
 
-export default CartItem;
+export default memo(CartItem);
