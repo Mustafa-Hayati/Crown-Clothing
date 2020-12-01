@@ -1,9 +1,5 @@
 import React, { ComponentType, FC } from "react";
-
-import {
-  SpinnerContainer,
-  SpinnerOverlay,
-} from "./WithSpinnerStyles";
+import Spinner from "../Spinner/Spinner";
 
 interface ILoadingProps {
   isLoading: boolean;
@@ -16,9 +12,7 @@ const WithSpinner = <P extends object>(
   ...otherProps
 }: ILoadingProps) =>
   isLoading ? (
-    <SpinnerOverlay>
-      <SpinnerContainer />
-    </SpinnerOverlay>
+    <Spinner />
   ) : (
     <WrappedComponent {...(otherProps as P)} />
   );
