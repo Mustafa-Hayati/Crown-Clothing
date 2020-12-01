@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
+const compression = require("compression");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -16,6 +17,7 @@ app.disable("x-powered-by");
 // Necessary Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(compression());
 
 app.use(cors());
 
