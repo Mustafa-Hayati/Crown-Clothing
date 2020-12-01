@@ -24,7 +24,8 @@ import { GlobalStyle } from "./globalStyles";
 import Spinner from "./components/Spinner/Spinner";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 
-const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
+import HomePage from "./pages/HomePage/HomePage";
+// const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const ShopPage = lazy(() => import("./pages/ShopPage/ShopPage"));
 const SignInAndSignUp = lazy(
   () => import("./pages/SignInAndSignUp/SingInAndSignUp")
@@ -49,9 +50,9 @@ const App: FC<IProps> = ({ currentUser, checkUserSession }) => {
       <GlobalStyle />
       <Header />
       <Switch>
+        <Route exact path="/" component={HomePage} />
         <ErrorBoundary>
           <Suspense fallback={<Spinner />}>
-            <Route exact path="/" component={HomePage} />
             <Route path="/shop" component={ShopPage} />
             <Route
               exact
