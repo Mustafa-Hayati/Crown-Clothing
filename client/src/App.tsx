@@ -1,3 +1,7 @@
+/*
+ * TODO: remove eslint disable comments and use the
+ * dependncies
+ */
 import React, {
   /* useState, */ FC,
   useEffect,
@@ -18,6 +22,7 @@ import { Dispatch } from "redux";
 import { checkUserSession } from "./Redux/actions/userActions";
 import { GlobalStyle } from "./globalStyles";
 import Spinner from "./components/Spinner/Spinner";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const ShopPage = lazy(() => import("./pages/ShopPage/ShopPage"));
@@ -44,18 +49,24 @@ const App: FC<IProps> = ({ currentUser, checkUserSession }) => {
       <GlobalStyle />
       <Header />
       <Switch>
-        <Suspense fallback={<Spinner />}>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/shop" component={ShopPage} />
-          <Route
-            exact
-            path="/signin"
-            render={() =>
-              currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
-            }
-          />
-          <Route exact path="/checkout" component={CheckoutPage} />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<Spinner />}>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/shop" component={ShopPage} />
+            <Route
+              exact
+              path="/signin"
+              render={() =>
+                currentUser ? (
+                  <Redirect to="/" />
+                ) : (
+                  <SignInAndSignUp />
+                )
+              }
+            />
+            <Route exact path="/checkout" component={CheckoutPage} />
+          </Suspense>
+        </ErrorBoundary>
       </Switch>
     </div>
   );
