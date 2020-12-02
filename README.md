@@ -2,7 +2,7 @@
 
 I created this app using [Andrei Neagoie](https://github.com/aneagoie) and [Yihua Zhang's](https://github.com/ZhangMYihua)  [Complete React Developer in 2020](https://www.udemy.com/course/complete-react-developer-zero-to-mastery/) course. I used **[TypeScript](https://www.typescriptlang.org/)** instead of JavaScript and all components, except the _ErrorBoundary_ component, are written using functional components.
 
-I skipped the **GraphQL** and **hooks** sections, because I know them well. I also didn't use much of **styled components**, because I don't like _CSS in JS_. The **styling is unfinished**. I also didn't write any tests.
+I skipped the **GraphQL** and **hooks** sections, because I know them well. I also didn't use much of **styled components**, because I don't like _CSS in JS_. The **styling is unfinished**. I also didn't write any tests. Contact Page is also empty.
 
 ## Technology used
 

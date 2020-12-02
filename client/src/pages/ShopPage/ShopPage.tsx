@@ -25,8 +25,7 @@ interface IProps extends RouteComponentProps {
 const ShopPage: FC<IProps> = ({ match, fetchCollectionsStart }) => {
   useEffect(() => {
     fetchCollectionsStart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [fetchCollectionsStart]);
 
   return (
     <div className="shop-page">

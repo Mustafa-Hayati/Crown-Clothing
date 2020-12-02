@@ -1,13 +1,4 @@
-/*
- * TODO: remove eslint disable comments and use the
- * dependncies
- */
-import React, {
-  /* useState, */ FC,
-  useEffect,
-  lazy,
-  Suspense,
-} from "react";
+import React, { FC, useEffect, lazy, Suspense } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -42,8 +33,7 @@ interface IProps {
 const App: FC<IProps> = ({ currentUser, checkUserSession }) => {
   useEffect(() => {
     checkUserSession();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [checkUserSession]);
 
   return (
     <div>
