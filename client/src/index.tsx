@@ -8,6 +8,8 @@ import storage, { IApplicationState } from "./Redux/store/store";
 import App from "./App";
 import { Store } from "redux";
 
+import * as serviceWorker from "./serviceWorker";
+
 interface IProps {
   store: Store<IApplicationState>;
 }
@@ -28,3 +30,5 @@ ReactDOM.render(
   <Root store={storage.store} />,
   document.getElementById("root")
 );
+
+serviceWorker.register();
