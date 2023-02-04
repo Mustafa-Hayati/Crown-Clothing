@@ -30,7 +30,7 @@ I skipped the **GraphQL** and **hooks** sections, because I know them well. I al
 Download the zip file or Clone this repo, using:
 
 ```bash
-git clone https://github.com/Mustafa-Hayati/Crown-Clothing.git
+git clone https://github.com/eXvimmer/Crown-Clothing.git
 ```
 
 Install the dependencies:
